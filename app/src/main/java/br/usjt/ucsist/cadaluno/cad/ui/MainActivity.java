@@ -44,12 +44,17 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.perfil:
                         //aqui vai ser o perfil
-                        replaceFragment(R.id.frameLayout, PerfilFragment.newInstance("",""), "PERFILFRAGMENT", "Perfil");
+                        replaceFragment(R.id.frameLayout, PerfilFragment.newInstance(false,""), "PERFILFRAGMENT", "Perfil");
                         return true;
 
                     case R.id.config:
                         //aqui será a configuração
                         replaceFragment(R.id.frameLayout, ConfiguracaoFragment.newInstance("",""), "CONFIGFRAGMENT", "Config");
+                        return true;
+
+                    case R.id.mapa:
+                        //aqui será a mapa
+                        replaceFragment(R.id.frameLayout, new MapaFragment(), "MAPAFRAGMENT", "Mapa");
                         return true;
 
 
@@ -70,9 +75,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
-            case R.id.editar:
-                Intent intent = new Intent(this, CadastroActivity.class);
-                startActivity(intent);
             case R.id.sair:
                 finish();
                 return (true);
