@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.contato:
                         //aqui ele vai chamar a fragment contato
-                        replaceFragment(R.id.frameLayout, ContatoFragment.newInstance("",""), "CONTATOFRAGMENT", "Contato");
+                        replaceFragment(R.id.frameLayout, ContatoFragment.newInstance("", null), "CONTATOFRAGMENT", "Contato");
                         return true;
 
                     case R.id.perfil:

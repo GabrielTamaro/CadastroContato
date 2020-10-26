@@ -32,7 +32,8 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".cad.ui.CadastroActivity" />
-        <activity android:name=".cad.ui.MainActivity" />
+        <activity android:name=".cad.ui.MainActivity"
+            android:windowSoftInputMode="adjustNothing"></activity>
         <activity android:name=".cad.ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
