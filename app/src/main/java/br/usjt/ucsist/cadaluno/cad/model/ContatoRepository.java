@@ -79,7 +79,7 @@ public class ContatoRepository {
 
     public void alterarContato(Contato contato){
         ContatoPut contatoPut = new ContatoPut(contato.getNome(),contato.getEmail(),
-                contato.getTelefone());
+                contato.getTelefone(), contato.getImagem());
                 contatoService.alterarContato(contato.getId(),contatoPut)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override

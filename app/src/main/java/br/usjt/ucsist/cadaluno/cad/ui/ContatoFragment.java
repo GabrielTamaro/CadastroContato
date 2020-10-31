@@ -1,5 +1,7 @@
 package br.usjt.ucsist.cadaluno.cad.ui;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -10,9 +12,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -88,6 +92,7 @@ public class ContatoFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = (Contato) getArguments().getSerializable(ARG_PARAM2);
         }
+        contatoCorrente = new Contato();
     }
 
     @Override
@@ -135,6 +140,13 @@ public class ContatoFragment extends Fragment {
                 }
             }
         });
+        if(mParam2!=null){
+            contatoCorrente = mParam2;
+            editTextNome.setText(contatoCorrente.getNome());
+            editTextEmail.setText(contatoCorrente.getEmail());
+            editTextTelefone.setText(contatoCorrente.getTelefone());
+            fotoContato.setImageBitmap(ImageUtil.decode(contatoCorrente.getImagem()));
+        }
     }
 
     public void tirarFoto(){
@@ -156,17 +168,16 @@ public class ContatoFragment extends Fragment {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             fotoContato.setImageBitmap(imageBitmap);
-            //contatoCorrente.setImagem(ImageUtil.encode(imageBitmap));
-            //Log.d("IMAGEMBITMAPENCODED-->",contatoCorrente.getImagem());
+            contatoCorrente.setImagem(ImageUtil.encode(imageBitmap));
+            Log.d("IMAGEMBITMAPENCODED-->",contatoCorrente.getImagem());
         }
 
     }
 
 
     public void salvar() {
-        if (contatoCorrente == null) {
-            contatoCorrente = new Contato();
-        }
+        hideSoftKeyboard(getActivity());
+
         if (validarCampos()) {
             contatoCorrente.setNome(editTextNome.getText().toString());
             contatoCorrente.setEmail(editTextEmail.getText().toString());
@@ -201,6 +212,7 @@ public class ContatoFragment extends Fragment {
             editTextNome.setText("");
             editTextEmail.setText("");
             editTextTelefone.setText("");
+            fotoContato.setImageResource(R.drawable.ic_place_holder);
         }
 
     public void onChanged(@Nullable final Boolean sucesso) {
@@ -222,4 +234,12 @@ public class ContatoFragment extends Fragment {
 
 
         }
+
+    public static void hideSoftKeyboard(Activity activity) {
+        if (activity.getCurrentFocus() == null) {
+            return;
+        }
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+    }
 }

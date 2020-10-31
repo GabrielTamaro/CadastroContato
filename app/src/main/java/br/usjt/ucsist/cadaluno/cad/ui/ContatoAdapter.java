@@ -3,6 +3,7 @@ package br.usjt.ucsist.cadaluno.cad.ui;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,7 @@ public class ContatoAdapter extends RecyclerView.Adapter<ContatoAdapter.ContatoH
         holder.textViewNome.setText(contato.getNome());
         holder.textViewEmail.setText(contato.getEmail());
         holder.textViewTelefone.setText(contato.getTelefone());
+        holder.fotoContatoCard.setImageBitmap(ImageUtil.decode(contato.getImagem()));
 
     }
 
@@ -45,12 +47,14 @@ public class ContatoAdapter extends RecyclerView.Adapter<ContatoAdapter.ContatoH
         private TextView textViewNome;
         private TextView textViewEmail;
         private TextView textViewTelefone;
+        private ImageView fotoContatoCard;
 
         public ContatoHolder(@NonNull View itemView) {
             super(itemView);
             textViewNome = itemView.findViewById(R.id.textViewNomeContato);
             textViewEmail = itemView.findViewById(R.id.textViewEmailContato);
             textViewTelefone = itemView.findViewById(R.id.textViewTelefoneContato);
+            fotoContatoCard = itemView.findViewById(R.id.fotoContatoCard);
             itemView.setOnClickListener(this);
         }
         @Override
